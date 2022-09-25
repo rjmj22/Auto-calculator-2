@@ -8,14 +8,15 @@ https://www.nerdwallet.com/article/loans/auto-loans/average-car-loan-interest-ra
 The install requirements are in the requirements.txt
 Need to also download data_new.sqlite3 & data_used.sqlite3
 
-Will need to change: line 6 "df = pd.read_sql_table('D:/coding/project/data.sqlite3')" to the directory that data.sqlite3 is put into
+Will need to change: line 6 "df_new = pd.read_sql_table(''sqlite:///D:\\coding\\project 2\\data_new.sqlite3'') 
+And line 7 "df_used = pd.read_sql_table(''sqlite:///D:\\coding\\project 2\\data_used.sqlite3'') to the directory that data.sqlite3 is put into
 
 The selections from the list are:
 
-1st: Read in data from a database. * Was using CSV prior.
-2nd: Use pandas to clean data
-3rd: 5 basic calculations with python And custom functions
-4th: 2 graphs
-5th: readme
+1st: Read in data from two databases. 
+2nd: Use pandas to merge and clean data
+3rd: 
+4th: 
+5th: 
 
 run file: "car_finance_calculator.py"

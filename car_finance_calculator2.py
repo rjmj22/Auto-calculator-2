@@ -1,5 +1,8 @@
 import pandas as pd
 from sqlalchemy import create_engine
+from bokeh.plotting import figure
+from bokeh.models import ColumnDataSource, LabelSet
+from bokeh.io import show
 # Make sure to update the path below as needed
 engine_new = create_engine('sqlite:///D:\\coding\\project 2\\data_new.sqlite3')
 engine_used = create_engine('sqlite:///D:\\coding\\project 2\\data_used.sqlite3')
@@ -10,7 +13,7 @@ df_used = pd.read_sql_table('credit', engine_used)
 new_df = df_new.merge(df_used, how='right')
 # getting rid of "NaN"
 new_df = new_df.dropna()
-# Getting database data to lists
+# Getting database to lists
 
 superprime = new_df.loc[1, :].values.tolist()
 
@@ -50,11 +53,11 @@ def get_rate(credit_score, condition):
     return rate
 
 def get_int(principal, rate):
-    int3 = (principal * rate * 3)
-    int4 = (principal * rate * 4)
-    int5 = (principal * rate * 5)
-    int6 = (principal * rate * 6)
-    int7 = (principal * rate * 7)
+    int3 = int(principal * rate * 3)
+    int4 = int(principal * rate * 4)
+    int5 = int(principal * rate * 5)
+    int6 = int(principal * rate * 6)
+    int7 = int(principal * rate * 7)
     int_rates = (int3, int4, int5, int6, int7)
     return int_rates
 
@@ -130,35 +133,20 @@ def main():
     get_years(principal, int_rates)
     loan_years = get_years(principal, int_rates)
 
-# # Making plot data
+# converting int_rates to string for annotation   
+    rates_string = [str(x) for x in int_rates]
 
-# # # Plot 1 data
-# #     plt.figure(1)
-# #     plot_data1 = {"Months": ["36", "48", "60", "72", "84"],
-# #                  "Amounts": [loan_years[0], loan_years[1], loan_years[2], loan_years[3], loan_years[4]]}
-# #     splot1=sns.barplot(x="Months",y="Amounts",data=plot_data1)
-# #     for bar in splot1.patches:
-# #         splot1.annotate(format(bar.get_height(), '.2f'),
-# #                 (bar.get_x() + bar.get_width() / 2,
-# #                  bar.get_height()), ha='center', va='center',
-# #                  size=15, xytext=(0, 8),
-# #                  textcoords='offset points')
-# #     plt.xlabel("Months", size=15)
-# #     plt.ylabel("Monthly payment", size=15)
-
-# # # Plot 2 data
-# #     plt.figure(2)
-# #     plot_data2 = {"Months": ["36", "48", "60", "72", "84"],
-# #                  "Amounts": [int_rates[0], int_rates[1], int_rates[2], int_rates[3], int_rates[4]]}
-# #     splot2=sns.barplot(x="Months",y="Amounts",data=plot_data2)
-# #     for bar in splot2.patches:
-# #         splot2.annotate(format(bar.get_height(), '.2f'),
-# #                 (bar.get_x() + bar.get_width() / 2,
-# #                  bar.get_height()), ha='center', va='center',
-# #                  size=15, xytext=(0, 8),
-# #                  textcoords='offset points')
-# #     plt.xlabel("Months", size=15)
-# #     plt.ylabel("Interest paid", size=15)
-# #     plt.show()
-
+# using bokeh for visualizations
+    source1 = ColumnDataSource(data=dict(
+        rates=[int_rates[0], int_rates[1], int_rates[2], int_rates[3], int_rates[4]],
+        months=[36, 48, 60, 72, 84],
+        amounts=[rates_string[0], rates_string[1], rates_string[2], rates_string[3], rates_string[4]]))
+    graph1 = figure()
+    graph1.vbar(x='months', top='rates', source=source1)
+    graph1.xaxis.axis_label = 'Total months'
+    graph1.yaxis.axis_label = 'Total interest paid'
+    labels1 = LabelSet(x='months', y='rates', text='amounts', source=source1)
+    graph1.add_layout(labels1)
+    show(graph1)
+    
 main()

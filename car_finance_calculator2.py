@@ -1,3 +1,4 @@
+from turtle import fillcolor
 import pandas as pd
 from sqlalchemy import create_engine
 from bokeh.plotting import figure
@@ -137,16 +138,31 @@ def main():
     rates_string = [str(x) for x in int_rates]
 
 # using bokeh for visualizations
+# graph for interest paid
     source1 = ColumnDataSource(data=dict(
         rates=[int_rates[0], int_rates[1], int_rates[2], int_rates[3], int_rates[4]],
         months=[36, 48, 60, 72, 84],
-        amounts=[rates_string[0], rates_string[1], rates_string[2], rates_string[3], rates_string[4]]))
+        amounts=[rates_string[0], rates_string[1], rates_string[2], rates_string[3], rates_string[4]],
+        colors = ["blue", "green", "yellow", "orange", "red"]))
     graph1 = figure()
-    graph1.vbar(x='months', top='rates', source=source1)
+    graph1.vbar(x='months', top='rates', width=8, color='colors', source=source1)
     graph1.xaxis.axis_label = 'Total months'
     graph1.yaxis.axis_label = 'Total interest paid'
     labels1 = LabelSet(x='months', y='rates', text='amounts', source=source1)
     graph1.add_layout(labels1)
     show(graph1)
+# bokeh graph for monthly payment
+    source2 = ColumnDataSource(data=dict(
+        rates=[int_rates[0], int_rates[1], int_rates[2], int_rates[3], int_rates[4]],
+        months=[36, 48, 60, 72, 84],
+        amounts=[rates_string[0], rates_string[1], rates_string[2], rates_string[3], rates_string[4]],
+        colors = ["blue", "green", "yellow", "orange", "red"]))
+    graph2 = figure()
+    graph2.vbar(x='months', top='rates', width=8, color='colors', source=source2)
+    graph2.xaxis.axis_label = 'Total months'
+    graph2.yaxis.axis_label = 'Monthly payment'
+    labels2 = LabelSet(x='months', y='rates', text='amounts', source=source2)
+    graph2.add_layout(labels2)
+    show(graph2)
     
 main()

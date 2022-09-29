@@ -1,9 +1,9 @@
-from turtle import fillcolor
 import pandas as pd
 from sqlalchemy import create_engine
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, LabelSet
 from bokeh.io import show
+from bokeh.layouts import row
 # Make sure to update the path below as needed
 engine_new = create_engine('sqlite:///D:\\coding\\project 2\\data_new.sqlite3')
 engine_used = create_engine('sqlite:///D:\\coding\\project 2\\data_used.sqlite3')
@@ -136,6 +136,8 @@ def main():
 
 # converting int_rates to string for annotation   
     rates_string = [str(x) for x in int_rates]
+# converting loan_years to string for annotation
+    years_string = [str(x) for x in loan_years]
 
 # using bokeh for visualizations
 # graph for interest paid
@@ -147,22 +149,26 @@ def main():
     graph1 = figure()
     graph1.vbar(x='months', top='rates', width=8, color='colors', source=source1)
     graph1.xaxis.axis_label = 'Total months'
+    graph1.xaxis.axis_label_text_font_size = "15pt"
     graph1.yaxis.axis_label = 'Total interest paid'
-    labels1 = LabelSet(x='months', y='rates', text='amounts', source=source1)
+    graph1.yaxis.axis_label_text_font_size = "15pt"
+    labels1 = LabelSet(x='months', y='rates', text='amounts', text_font_size="15pt", x_offset=-27, y_offset=5, source=source1)
     graph1.add_layout(labels1)
-    show(graph1)
+    
 # bokeh graph for monthly payment
     source2 = ColumnDataSource(data=dict(
-        rates=[int_rates[0], int_rates[1], int_rates[2], int_rates[3], int_rates[4]],
+        rates=[loan_years[0], loan_years[1], loan_years[2], loan_years[3], loan_years[4]],
         months=[36, 48, 60, 72, 84],
-        amounts=[rates_string[0], rates_string[1], rates_string[2], rates_string[3], rates_string[4]],
-        colors = ["blue", "green", "yellow", "orange", "red"]))
+        amounts=[years_string[0], years_string[1], years_string[2], years_string[3], years_string[4]],
+        colors = ["red", "orange", "yellow", "green", "blue"]))
     graph2 = figure()
     graph2.vbar(x='months', top='rates', width=8, color='colors', source=source2)
     graph2.xaxis.axis_label = 'Total months'
+    graph2.xaxis.axis_label_text_font_size = "15pt"
     graph2.yaxis.axis_label = 'Monthly payment'
-    labels2 = LabelSet(x='months', y='rates', text='amounts', source=source2)
+    graph2.yaxis.axis_label_text_font_size = "15pt"
+    labels2 = LabelSet(x='months', y='rates', text='amounts', text_font_size="15pt", x_offset=-16, y_offset=5, source=source2)
     graph2.add_layout(labels2)
-    show(graph2)
+    show(row(graph1, graph2))
     
 main()

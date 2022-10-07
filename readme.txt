@@ -5,18 +5,21 @@ https://www.nerdwallet.com/article/loans/auto-loans/average-car-loan-interest-ra
 
 *rates accurate as of 9/25/22
 
+This is the information I used to setup a virtual environment:
+https://code.visualstudio.com/docs/python/environments
+
 The install requirements are in the requirements.txt
 Need to also download data_new.sqlite3 & data_used.sqlite3
 
-Will need to change: line 6 "df_new = pd.read_sql_table(''sqlite:///D:\\coding\\project 2\\data_new.sqlite3'') 
-And line 7 "df_used = pd.read_sql_table(''sqlite:///D:\\coding\\project 2\\data_used.sqlite3'') to the directory that data.sqlite3 is put into
+Will need to change: line 8 "df_new = pd.read_sql_table(''sqlite:///D:\\coding\\project 2\\data_new.sqlite3'') 
+And line 9 "df_used = pd.read_sql_table(''sqlite:///D:\\coding\\project 2\\data_used.sqlite3'') to the directory that data.sqlite3 is put into
 
 The selections from the list are:
 
 1st: Read in data from two databases. 
 2nd: Use pandas to merge and clean data
-3rd: 
-4th: 
-5th: 
+3rd: Bar charts with Bokeh
+4th: Virtual environment 
+5th: Annontate with comments
 
 run file: "car_finance_calculator.py"

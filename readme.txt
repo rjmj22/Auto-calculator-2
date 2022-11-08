@@ -7,6 +7,14 @@ https://www.nerdwallet.com/article/loans/auto-loans/average-car-loan-interest-ra
 
 This is the information I used to setup a virtual environment:
 https://code.visualstudio.com/docs/python/environments
+To create a virtual environment, use the following command, where ".venv" is the name of the environment folder:
+# macOS/Linux
+# You may need to run sudo apt-get install python3-venv first
+python3 -m venv .venv
+
+# Windows
+# You can also use py -3 -m venv .venv
+python -m venv .venv
 
 The install requirements are in the requirements.txt
 Need to also download data_new.sqlite3 & data_used.sqlite3

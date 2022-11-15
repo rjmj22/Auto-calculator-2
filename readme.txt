@@ -9,7 +9,7 @@ The install requirements are in the requirements.txt
 Need to also download data_new.sqlite3 & data_used.sqlite3
 
 Will need to change: line 8 "df_new = pd.read_sql_table(''sqlite:///D:\\coding\\project 2\\data_new.sqlite3'') 
-And line 9 "df_used = pd.read_sql_table(''sqlite:///D:\\coding\\project 2\\data_used.sqlite3'') to the directory that data.sqlite3 is put into
+And line 9 "df_used = pd.read_sql_table(''sqlite:///D:\\coding\\project 2\\data_used.sqlite3'') to the directory that data_new.sqlite3 and data_used.sqlite3 is put into.
 
 The selections from the list are:
 
